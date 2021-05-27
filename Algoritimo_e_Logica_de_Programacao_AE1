@@ -1,0 +1,39 @@
+Algoritmo AE1
+
+Var
+	contador, cont: inteiro
+	nome_colaborador: caractere
+	salario_colaborador, soma_venda, salario_mes, comissao: Real
+	venda: vetor [1..4] de Real
+
+Inicio
+
+	contador <- 1
+	
+	Enquanto (contador <= 4) faça
+	
+		Escreval("Digite o nome do colaborador:")
+		Leia (nome_colaborador)
+		Escreval ("Digite salário fixo do colaborador:")
+		Leia (salario_colaborador)
+		
+		Para cont de 1 até 4 passo 1 faça
+			Escreval ("Digite o valor do total de vendas da semana", cont, ":")
+			Leia (venda[cont])
+			soma_venda <- soma_venda + venda[cont]
+		Fim_para
+		
+		comissao <- soma_venda * (10/100)
+		salario_mes <- salario_colaborador + comissao
+		
+		Escreval ("Nome do Colaborador:", nome_colaborador)
+		Escreval ("Total de Vendas: R$", soma_venda)
+		Escreval ("Salário do Mês: R$", salario_mes)
+		Escreval ()
+		
+		contador <- contador + 1
+		cont <- 0
+		soma_venda <- 0
+		
+	Fim_enquanto	
+Fim
