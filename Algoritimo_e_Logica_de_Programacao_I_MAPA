@@ -1,0 +1,202 @@
+//Algoritimos e Lógica de Programação I //
+//RA: 20126634-5						//
+//Angelo Rodrigo Almeida Fernandes		//
+//--------------------------------------//
+
+Algoritmo MAPA - Cadastro e Consulta de Produtos
+
+	Tipo
+		cad_prod = registro
+		codigo: inteiro
+		marca: Vetor[1..20] de caractere
+		modelo: Vetor[1..50] de caractere
+		valor_venda: real
+	Fim_registro
+
+
+	Procedimento menu()
+	Início
+		Escreval("Digite o número do menu desejado para continuar:")
+		Escreval("(1)- Cadastrar um novo Produto")
+		Escreval("(2)- Listar Produtos Cadastrados")
+		Escreval("(3)- Buscar Produto")
+		Escreval("(4)- Sair do sistema")
+	Fim_procedimento
+
+
+	Procedimento menu_escolha()
+	Início
+		Se (opcao_menu = 1) então
+			cadastro_produtos ()
+		Fim_se
+		Se (opcao_menu = 2) então
+			listar_produtos ()
+		Fim_se
+		Se (opcao_menu = 3) então
+			busca_produtos ()
+		Fim_se
+		Se (opcao_menu <= 0) ou (opcao_menu > 4) então
+			Escreval ("Opção invalida!")
+		Fim_se
+	Fim_procedimento
+
+
+	Procedimento cadastro_produtos()
+	Var
+		cont_cad: inteiro
+		
+	Início
+		valida <- ""
+		cont_cad <- 1
+		
+		Para cont_cad de 1 até quant_cad passo 1 faça
+			prod[cont_cad].codigo <- cont_cad
+			cont_cad <- cont_cad + 1
+		Fim_para
+
+		cont_cad <- 1
+		
+		Repita
+			Se (cont_cad <= quant_cad) então
+				Se ((prod[cont_cad].codigo = cont_cad) e (prod[cont_cad].marca = "") e (prod[cont_cad].modelo = "")) então
+					Escreval("Digite a marca do produto ", prod[cont_cad].codigo, ": ")
+					Leia(prod[cont_cad].marca)
+					Escreval("Digite o modelo do produto ", prod[cont_cad].codigo, ": ")
+					Leia(prod[cont_cad].modelo)
+					Escreval("Digite o valor de venda do produto ", prod[cont_cad].codigo, ": ")
+					Leia(prod[cont_cad].valor_venda)
+					Escreval("Produto ", prod[cont_cad].codigo, " cadastrado!")
+					Escreval( )
+					Se(cont_cad < quant_cad) entao
+						Escreval("Digite (s) para cadastrar um novo produto ou qualquer tecla para voltar ao menu.")
+						Leia(valida)
+						Se (valida = "s") então
+							cont_cad <- cont_cad + 1
+						Senão
+							Escreval("Cadastro finalizado!")
+						Fim_se
+					Senão
+						Escreval("Limite máximo de ", quant_cad," produtos atingido!")
+						valida <- "n"
+					Fim_se
+					Escreval( )
+				Senão
+					cont_cad <- cont_cad + 1
+					valida <- "s"
+					Se (cont_cad > quant_cad) então
+						Escreval("Desculpe, o limite máximo de ", quant_cad," produtos foi atingido!")
+						Escreval("Escolha a opção (2) do menu para listar os produtos cadastrados")
+						valida <- "n"
+					Fim_se
+				Fim_se
+			Fim_se
+		Ate (valida <> "s")
+		Escreval( )
+	Fim_procedimento
+
+
+	Procedimento listar_produtos()
+	Var
+		cont_list: inteiro
+
+	Início
+		Se (validacao = 1) entao
+			Escreval("Lista de produtos cadastrados:" )
+			Escreval( )
+			Para cont_list de 1 até quant_cad passo 1 faça
+				Se ((prod[cont_list].codigo = cont_list) e (prod[cont_list].marca <> "")) então
+					Escreval("Código: ", prod[cont_list].codigo)
+					Escreval("Marca: ", prod[cont_list].marca)
+					Escreval("Modelo: ", prod[cont_list].modelo)
+					Escreval("Valor de Venda: R$ ", prod[cont_list].valor_venda)
+					Escreval( )
+				Fim_se
+			Fim_para
+			Escreval("Todos os produtos cadastrados foram listados.")
+			Escreval( )
+		Senão
+			Escreval("Nenhum produto cadastrado!")
+			Escreval("Utilize a opção (1) do menu para cadastrar seus produtos.")
+			Escreval( )
+		Fim_se
+	Fim_procedimento
+
+
+	Funcao validacao(): inteiro
+	Var
+		val: inteiro
+
+	Início
+		Se (prod[1].codigo = 1) entao
+			val <- 1
+		Senão
+			val <- 0
+		Fim_se
+		Retorne val
+	Fim_funcao
+
+
+	Procedimento busca_produtos()
+	Início
+		cont_busc <- 0
+		Escreval("Digite o número do código do produto ao qual deseja buscar:")
+		Leia (cont_busc)
+		Escreval( )
+		Repita
+			Se (cont_busc <= quant_cad) então
+				Se ((cont_busc = prod[cont_busc].codigo) e (prod[cont_busc].marca <> "")) então
+					Escreval("O produto localizado com o código ", prod[cont_busc].codigo, " foi:")
+					Escreval("Marca: ", prod[cont_busc].marca)
+					Escreval("Modelo: ", prod[cont_busc].modelo)
+					Escreval("Valor de Venda: R$ ", prod[cont_busc].valor_venda)
+					Escreval( )
+					continua_busca()
+				Senão
+					Escreval("Produto não localizado!")
+					Escreval( )
+					continua_busca()
+				Fim_se
+			Senão
+				Escreval("Número invalido, insira um número de 1 a ", quant_cad, ".")
+				Escreval( )
+				continua_busca()
+			Fim_se
+		Até_que (valida <> "s")
+	Fim_procedimento
+
+
+	Procedimento continua_busca()
+	Início
+		valida <- ""
+		Escreval("Deseja buscar outro produto?")
+		Escreval("Digite (s) para realizar uma nova busca ou qualquer tecla para voltar ao menu.")
+		Leia(valida)
+		Se (valida = "s") então
+			Escreval( )
+			Escreval("Digite o número do código do produto ao qual deseja buscar:")
+			Leia (cont_busc)
+		Senão
+			Escreval("Busca finalizada!")
+			Escreval( )
+		Fim_se
+	Fim_procedimento
+
+
+Var
+	opcao_menu, quant_cad, cont_busc: inteiro
+	valida: caractere
+	prod : vetor [1..100] de cad_prod
+
+
+Início
+	quant_cad <- 100
+  
+	Escreval ("Bem-vindo(a) ao sistema de Cadastro e Consulta de Produtos!")
+	Repita
+		opcao_menu <- 0
+		menu()
+		Leia (opcao_menu)
+		Escreval( )
+		menu_escolha()
+	Até_que (opcao_menu = 4)
+Fim
